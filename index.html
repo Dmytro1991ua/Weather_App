@@ -27,13 +27,66 @@
 </head>
 
 <body>
-<div class="wrapper">
-<section class="weather-app">
-   <div class="weather-app__body">
-      
+   <div class="wrapper">
+      <h1 class="heading-1">Check the Weather in</h1>
+      <section class="weather-app">
+         <div class="container">
+            <div class="weather-app__body">
+               <!--Weather App header starts-->
+               <figure class="weather-app__header">
+                  <div class="weather-app__img-box">
+                     <img src="images/app-img/day.jpg" alt="day image" class="weather-app__img">
+                  </div>
+                  <span class="weather-app__date">Sunday,Nov 8, 2020</span>
+                  <time class="weather-app__time">17:40PM</time>
+                  <form class="weather-app__search-input">
+                     <input type="text" class="weather-app__city-search" id="city" placeholder="Enter your city">
+                     <label class ="weather-app__city-search-label" for="city">Enter your city</label>
+                  </form>
+               </figure>
+               <!--Weather App header ends-->
+               <!--Weather App bottom starts-->
+               <div class="weather-app__bottom">
+                  <div class="weather-app__bottom-body">
+                     <h2 class="heading-2">London</h2>
+                     <!--First row starts-->
+                     <div class="weather-app__row">
+                        <span class="weather-app__temperature">5&deg;C</span>
+                        <div class="weather-app__temperature-details">
+                           <span class="weather-app__weather-condition">Storm</span>
+                           <span class="weather-app__temperature-max">10&deg;C</span>
+                           <span class="weather-app__temperature-min">7&deg;C</span>
+                        </div>
+                     </div>
+                     <!--First row ends-->
+                     <!--Second row starts-->
+                     <div class="weather-app__row">
+                        <figure class="weather-app__icon-box">
+                           <img src="images/app-img/cloud.png" alt="" class="weather-app__icon">
+                        </figure>
+                     </div>
+                     <!--Second row ends-->
+                     <!--Third row starts-->
+                     <div class="weather-app__row">
+                        <div class="weather-app__temperature-additional">
+                           <div class="weather-app__temperature-additional-box">
+                              <span class="weather-app__temperature-feeling">5&deg;C</span>
+                              <p class="weather-app__temperature-additional-title">Feels like</p>
+                           </div>
+                           <div class="weather-app__temperature-additional-box">
+                              <span class="weather-app__temperature-feeling">55%</span>
+                              <p class="weather-app__temperature-additional-title">Humidity</p>
+                           </div>
+                        </div>
+                     </div>
+                     <!--Third row ends-->
+                  </div>
+               </div>
+               <!--Weather App bottom ends-->
+            </div>
+         </div>
+      </section>
    </div>
-</section>
-</div>
 </body>
 
 </html>

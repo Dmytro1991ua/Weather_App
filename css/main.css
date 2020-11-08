@@ -57,11 +57,24 @@ html, body {
 body {
     font-size: 1.6rem;
     font-family: 'Josefin Sans', sans-serif;
-    background-image: url(../images/bg-covers/sunrise.jpg);
+}
+
+body::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    left: 0;
+    background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.6)), url(../images/bg-covers/sunset.jpg);
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
+    -webkit-backdrop-filter: blur(6px);
     backdrop-filter: blur(6px);
+    width: 100%;
+    min-height: 100vh;
+    z-index: -1;
 }
 
 .wrapper {
@@ -69,5 +82,214 @@ body {
     overflow-y: hidden;
     display: flex;
     flex-direction: column;
-    background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.6));
+    align-items: center;
+    justify-content: center;
+}
+
+/* Weather App itself */
+
+.heading-1 {
+    font-size: calc(24px + 30 * ((100vw - 320px) / (1920 - 320)));
+    text-transform: uppercase;
+    color: var(--color-white);
+    text-align: center;
+    padding: 1rem 0rem;
+}
+
+.heading-2 {
+    font-size: calc(22px + 23 * ((100vw - 320px) / (1920 - 320)));
+    text-transform: uppercase;
+    margin-bottom: .8rem;
+}
+
+.weather-app {
+    margin-bottom: 1.2rem;
+}
+
+.container {
+    padding: 0 1rem;
+}
+
+.weather-app__body {
+    background-color: var(--color-dark-blue);
+    border-radius: 1.5rem;
+    border: 3px solid var(--color-mantis);
+}
+
+/* Weather App header */
+
+.weather-app__header {
+    position: relative;
+    color: var(--color-mantis-darker);
+}
+
+.weather-app__img-box {
+    position: relative;
+}
+
+.weather-app__img {
+    object-fit: cover;
+    width: 100%;
+    height: 22rem;
+    border-top-left-radius: 1.5rem;
+    border-top-right-radius: 1.5rem;
+}
+
+.weather-app__date {
+    position: absolute;
+    bottom: .2rem;
+    left: 1rem;
+    font-size: calc(18px + 18 * ((100vw - 320px) / (1920 - 320)));
+    font-weight: 700;
+}
+
+.weather-app__time {
+    position: absolute;
+    bottom: .2rem;
+    right: 1rem;
+    font-size: calc(16px + 17 * ((100vw - 320px) / (1920 - 320)));
+    font-weight: 700;
+}
+
+.weather-app__search-input {
+    position: absolute;
+    top: 55%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.weather-app__city-search {
+    width: 24rem;
+    border: none;
+    background-color: transparent;
+    border-bottom: 3px solid var(--color-lighter-blue);
+    border-radius: 1rem;
+    font-family: inherit;
+    font-weight: 700;
+    color: var(--color-dark-blue);
+    padding: 1rem 1rem .4rem 1rem;
+    text-transform: uppercase;
+    margin-bottom: .3rem;
+    text-align: center;
+    transition: all .3s ease-in-out;
+}
+
+.weather-app__city-search::placeholder {
+    font-size: 2rem;
+    color: var(--color-dark-blue);
+}
+
+.weather-app__city-search-label {
+    display: block;
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--color-dark-blue);
+    text-align: center;
+    transition: all .3s ease-in-out;
+}
+
+.weather-app__city-search:placeholder-shown + .weather-app__city-search-label {
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-4rem);
+}
+
+/* Weather App bottom*/
+
+.weather-app__bottom {
+    color: var(--color-mantis-darker);
+    font-weight: 700;
+    padding: 2rem;
+}
+
+.weather-app__bottom-body {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.weather-app__row {
+    display: flex;
+    align-items: center;
+    margin-bottom: 1.3rem;
+}
+
+.weather-app__row:last-child {
+    margin-bottom: 0rem;
+}
+
+.weather-app__temperature {
+    font-size: 6rem;
+    margin-right: 5rem;
+}
+
+.weather-app__temperature-details {
+    display: flex;
+    flex-direction: column;
+}
+
+.weather-app__weather-condition {
+    font-size: 2rem;
+    margin-bottom: .2rem;
+}
+
+.weather-app__temperature-max {
+    margin-bottom: .2rem;
+    font-size: 2.2rem;
+}
+
+.weather-app__temperature-max::before {
+    content: "\2191";
+    margin-right: .3rem;
+}
+
+.weather-app__temperature-min::before {
+    content: "\2193";
+    margin-right: .3rem;
+}
+
+.weather-app__temperature-min {
+    font-size: 2.2rem;
+}
+
+.weather-app__icon-box {
+    width: 6rem;
+    height: 6rem;
+    background-color: var(--color-mantis);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50%;
+}
+
+.weather-app__icon {
+    width: 4.5rem;
+    height: 4.5rem;
+}
+
+.weather-app__temperature-additional {
+    display: flex;
+}
+
+.weather-app__temperature-additional-box {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-right: 5rem;
+}
+
+.weather-app__temperature-additional-box:last-child {
+    margin-right: 0rem;
+}
+
+.weather-app__temperature-feeling {
+    font-size: 1.6rem;
+    margin-bottom: .4rem;
+}
+
+.weather-app__temperature-additional-title {
+    text-transform: uppercase;
+    font-size: 1.7rem;
 }
