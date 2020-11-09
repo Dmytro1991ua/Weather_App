@@ -105,7 +105,7 @@ body {
     width: 30rem;
 }
 
-@media (min-width: 33em) {
+@media (min-width: 25em) {
     .weather-app__body {
         width: 40rem;
     }
@@ -136,7 +136,7 @@ body {
     border-top-right-radius: 1.5rem;
 }
 
-@media (min-width: 33em) {
+@media (min-width: 25em) {
     .weather-app__img {
         height: 24rem;
     }
@@ -152,7 +152,7 @@ body {
     position: absolute;
     bottom: .2rem;
     left: 1rem;
-    font-size: calc(18px + 18 * ((100vw - 320px) / (1920 - 320)));
+    font-size: calc(18px + 17 * ((100vw - 320px) / (1920 - 320)));
     font-weight: 700;
 }
 
@@ -160,7 +160,7 @@ body {
     position: absolute;
     bottom: .2rem;
     right: 1rem;
-    font-size: calc(16px + 17 * ((100vw - 320px) / (1920 - 320)));
+    font-size: calc(16px + 15 * ((100vw - 320px) / (1920 - 320)));
     font-weight: 700;
 }
 
