@@ -41,9 +41,25 @@ const runScript = () => {
       setTimeout(displayCurrentTime, 1000);
    };
 
+   // change background image based on current time 
+   const changeBgImage = () => {
+      const today = new Date(),
+         hour = today.getHours(),
+         wrapper = document.querySelector(".wrapper");
+      
+      if (hour < 12) {
+         wrapper.style.backgroundImage = 'url(../images/bg-covers/sunrise.jpg)';
+      } else if (hour < 18) {
+         wrapper.style.backgroundImage = 'url(../images/bg-covers/sunset.jpg)';
+      } else {
+         wrapper.style.backgroundImage = 'url(../images/bg-covers/night.jpg)';
+      }
+   };
+
    //call functions
    displayCurrentDate();
    displayCurrentTime();
+   changeBgImage();
 };
 
 if (document.readyState === "loading") {
