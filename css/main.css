@@ -66,8 +66,6 @@ body {
     flex-direction: column;
     align-items: center;
     justify-content: center;
-
-    /*background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.6)), url(../images/bg-covers/sunrise.jpg); */
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
@@ -85,19 +83,16 @@ body {
     padding: 1rem 0rem;
 }
 
-.heading-2 {
+.heading-2,
+.heading-2--diff {
     font-size: calc(22px + 23 * ((100vw - 320px) / (1920 - 320)));
     text-transform: uppercase;
-    margin-bottom: 1rem;
+    margin-bottom: 1.6rem;
     position: relative;
 }
 
-.heading-2::after {
-    content: ".....";
-    position: absolute;
-    bottom: -1.2rem;
-    right: 45%;
-    transform: translate(50%);
+.heading-2--diff {
+    margin: 0.4rem;
 }
 
 .weather-app {
@@ -113,6 +108,7 @@ body {
     border-radius: 1.5rem;
     border: 3px solid var(--color-mantis);
     width: 30rem;
+    filter: drop-shadow(0 0 0.75rem var(--color-mantis-darker));
 }
 
 @media (min-width: 25em) {
@@ -131,7 +127,7 @@ body {
 
 .weather-app__header {
     position: relative;
-    color: var(--color-mantis-darker);
+    color: var(--color-white);
 }
 
 .weather-app__img-box {
@@ -142,8 +138,7 @@ body {
     object-fit: cover;
     width: 100%;
     height: 22rem;
-    border-top-left-radius: 1.5rem;
-    border-top-right-radius: 1.5rem;
+    border-radius: 1.5rem;
 }
 
 @media (min-width: 25em) {
@@ -154,7 +149,7 @@ body {
 
 @media (min-width: 48em) {
     .weather-app__img {
-        height: 34rem;
+        height: 31rem;
     }
 }
 
@@ -162,7 +157,7 @@ body {
     position: absolute;
     bottom: .2rem;
     left: 1rem;
-    font-size: calc(18px + 17 * ((100vw - 320px) / (1920 - 320)));
+    font-size: calc(16px + 15 * ((100vw - 320px) / (1920 - 320)));
     font-weight: 700;
 }
 
@@ -170,7 +165,7 @@ body {
     position: absolute;
     bottom: .2rem;
     right: 1rem;
-    font-size: calc(16px + 15 * ((100vw - 320px) / (1920 - 320)));
+    font-size: calc(15px + 14 * ((100vw - 320px) / (1920 - 320)));
     font-weight: 700;
 }
 
@@ -260,6 +255,13 @@ body {
     color: var(--color-mantis-darker);
     font-weight: 700;
     padding: 2rem;
+    border-bottom-left-radius: 1.5rem;
+    border-bottom-right-radius: 1.5rem;
+    display: none;
+}
+
+.active {
+    display: block;
 }
 
 .weather-app__bottom-body {
@@ -290,8 +292,9 @@ body {
 }
 
 .weather-app__weather-condition {
-    font-size: 2rem;
+    font-size: calc(15px + 15 * ((100vw - 320px) / (1920 - 320)));
     margin-bottom: .2rem;
+    text-transform: capitalize;
 }
 
 .weather-app__temperature-max {
@@ -316,7 +319,8 @@ body {
 .weather-app__icon-box {
     width: 6rem;
     height: 6rem;
-    background-color: var(--color-mantis);
+    border: 4px solid var(--color-mantis);
+    background-color: var(--color-mantis-darker);
     display: flex;
     justify-content: center;
     align-items: center;
@@ -345,11 +349,11 @@ body {
 }
 
 .weather-app__temperature-feeling {
-    font-size: 1.6rem;
+    font-size: 2.8rem;
     margin-bottom: .4rem;
 }
 
 .weather-app__temperature-additional-title {
     text-transform: uppercase;
-    font-size: 1.7rem;
+    font-size: 1.3rem;
 }
