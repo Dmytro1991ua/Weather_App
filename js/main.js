@@ -61,11 +61,11 @@ const runScript = () => {
          hour = today.getHours();
 
       if (hour < 12) {
-         wrapperContent.style.backgroundImage = 'linear-gradient(to bottom, rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.6)), url(../images/bg-covers/sunrise.jpg)';
+         wrapperContent.style.background = 'linear-gradient(to bottom, rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.6)), url(./images/bg-covers/sunrise.jpg)';
       } else if (hour < 18) {
-         wrapperContent.style.backgroundImage = 'linear-gradient(to bottom, rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.6)), url(../images/bg-covers/sunset.jpg)';
+         wrapperContent.style.background = 'linear-gradient(to bottom, rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.6)), url(./images/bg-covers/sunset.jpg)';
       } else {
-         wrapperContent.style.backgroundImage = 'linear-gradient(to bottom, rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.6)), url(../images/bg-covers/night.jpg)';
+         wrapperContent.style.background = 'linear-gradient(to bottom, rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.6)), url(./images/bg-covers/night.jpg)';
       }
    };
 
