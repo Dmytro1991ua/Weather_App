@@ -161,7 +161,7 @@ const runScript = () => {
          weatherDetails.style.color = 'var(--color-mantis)';
          weatherAppHeader.style.color = 'var(--color-mantis-darker)';
       }
-      weatherDetails.style.display = "block"; // make weather details card visible
+     
    };
 
    // render am Error message text and insert it to HTML
@@ -179,7 +179,7 @@ const runScript = () => {
 
       const searchedCity = searchInput.value.toLowerCase().trim();
       formSearch.reset();
-      weatherDetails.style.display = "none"; // hide weather app details card before searching a new city;
+      weatherDetails.innerHTML = ""; // clear weather app details card before searching a new city;
       weatherDetails.classList.add("active");
       requestCity(searchedCity);
    });
