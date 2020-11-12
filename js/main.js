@@ -5,7 +5,7 @@ const runScript = () => {
    // Weather API info
    const weatherAPI = {
       apiKey: "991b53c438c4367255ef8979c7741abd",
-      baseUrl: `http://api.openweathermap.org/data/2.5/weather`,
+      baseUrl: `https://api.openweathermap.org/data/2.5/weather`,
    }
 
    //Global variables
@@ -110,7 +110,7 @@ const runScript = () => {
    // render weather data from api and update UI
    const renderWeatherData = (city) => {
       const iconPath = city.weather[0].icon; // garb a path to a weather icon from API
-      const weatherIconSrc = `http://openweathermap.org/img/wn/${iconPath}@2x.png`; // change a weather icon depends on a current weather state and either it is day or night  in particular city
+      const weatherIconSrc = `https://openweathermap.org/img/wn/${iconPath}@2x.png`; // change a weather icon depends on a current weather state and either it is day or night  in particular city
 
       weatherDetails.innerHTML = `
          <div class="weather-app__bottom-body">
