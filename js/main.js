@@ -61,11 +61,11 @@ const runScript = () => {
          hour = today.getHours();
 
       if (hour < 12) {
-         wrapperContent.style.background = 'linear-gradient(to bottom, rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.6)), url(./images/bg-covers/sunrise.jpg)';
+         wrapperContent.style.backgroundImage = 'linear-gradient(to bottom, rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.6)), url(./images/bg-covers/sunrise.jpg)';
       } else if (hour < 18) {
-         wrapperContent.style.background = 'linear-gradient(to bottom, rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.6)), url(./images/bg-covers/sunset.jpg)';
+         wrapperContent.style.backgroundImage = 'linear-gradient(to bottom, rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.6)), url(./images/bg-covers/sunset.jpg)';
       } else {
-         wrapperContent.style.background = 'linear-gradient(to bottom, rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.6)), url(./images/bg-covers/night.jpg)';
+         wrapperContent.style.backgroundImage = 'linear-gradient(to bottom, rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.6)), url(./images/bg-covers/night.jpg)';
       }
    };
 
@@ -150,18 +150,18 @@ const runScript = () => {
       `
 
       if (isDayTime(weatherIconSrc)) { // pass recieved from API icon (whether day or night) 
-         weatherAppImg.setAttribute("src", "/images/app-img/day.jpg");
+         weatherAppImg.setAttribute("src", "images/app-img/day.jpg");
          weatherDetails.style.backgroundColor = 'var(--color-lighter-blue)';
          weatherDetails.style.color = 'var(--color-white)';
          weatherAppHeader.style.color = "var(--color-mantis-darker)";
 
       } else {
-         weatherAppImg.setAttribute("src", "/images/app-img/night.jpg");
+         weatherAppImg.setAttribute("src", "images/app-img/night.jpg");
          weatherDetails.style.backgroundColor = 'var(--color-dark-blue)';
          weatherDetails.style.color = 'var(--color-mantis)';
          weatherAppHeader.style.color = 'var(--color-mantis-darker)';
       }
-
+      weatherDetails.style.display = "block"; // make weather details card visible
    };
 
    // render am Error message text and insert it to HTML
@@ -179,7 +179,7 @@ const runScript = () => {
 
       const searchedCity = searchInput.value.toLowerCase().trim();
       formSearch.reset();
-      weatherDetails.innerHTML = ""; // clear weather app details card before searching a new city;
+      weatherDetails.style.display = "none"; // hide weather app details card before searching a new city;
       weatherDetails.classList.add("active");
       requestCity(searchedCity);
    });
