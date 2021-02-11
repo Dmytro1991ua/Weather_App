@@ -1,127 +1,187 @@
-
 "use strict";
 const runScript = () => {
+  // Weather API info
+  const weatherAPI = {
+    apiKey: "991b53c438c4367255ef8979c7741abd",
+    baseUrl: `https://api.openweathermap.org/data/2.5/weather`,
+  };
 
-   // Weather API info
-   const weatherAPI = {
-      apiKey: "991b53c438c4367255ef8979c7741abd",
-      baseUrl: `https://api.openweathermap.org/data/2.5/weather`,
-   }
+  //Global variables
+  const wrapperContent = document.querySelector(".wrapper"),
+    formSearch = document.querySelector(".weather-app__search-input"),
+    searchInput = document.querySelector(".weather-app__city-search"),
+    date = document.querySelector(".weather-app__date"),
+    time = document.querySelector(".weather-app__time"),
+    weatherDetails = document.querySelector(".weather-app__bottom"),
+    weatherAppHeader = document.querySelector(".weather-app__header"),
+    weatherAppImg = document.querySelector(".weather-app__img"),
+    geolocationError = document.querySelector(
+      ".weather-app__geolocation-error"
+    );
 
-   //Global variables
-   const wrapperContent = document.querySelector(".wrapper"),
-      formSearch = document.querySelector(".weather-app__search-input"),
-      searchInput = document.querySelector(".weather-app__city-search"),
-      date = document.querySelector(".weather-app__date"),
-      time = document.querySelector(".weather-app__time"),
-      weatherDetails = document.querySelector(".weather-app__bottom"),
-      weatherAppHeader = document.querySelector(".weather-app__header"),
-      weatherAppImg = document.querySelector(".weather-app__img");
+  // get a current user's geolocation (check if browser supports a Geolocation API)
+  const geolocation = () => {
+    if (!navigator.geolocation) return;
+    navigator.geolocation.getCurrentPosition(setPosition, setError);
+  };
 
-   // add zero to munites and seconds when needed
-   const addZero = (num) => {
-      return (parseInt(num, 10) < 10 ? "0" : "") + num;
-   };
+  // set a current user location (latitude and longitude )
+  const setPosition = (position) => {
+    const latitude = position.coords.latitude;
+    const longitute = position.coords.longitude;
 
-   // display curent date as a string on the screen
-   const displayCurrentDate = () => {
-      const currentDay = new Date();
+    requestCoordinates(latitude, longitute);
+  };
 
-      const options = {
-         weekday: 'long',
-         year: "numeric",
-         month: 'short',
-         day: 'numeric',
-      };
+  // show an error if browser doesn't support Geolocation or it's blocked in the browser
+  const setError = (error) => {
+    geolocationError.style.display = "block";
+    geolocationError.innerHTML = `<p>${error.message}</p>`;
+    date.style.display = "none";
+    time.style.display = "none";
+  };
 
-      date.textContent = currentDay.toLocaleDateString('en-US', options);
-   };
+  // add zero to munites and seconds when needed
+  const addZero = (num) => {
+    return (parseInt(num, 10) < 10 ? "0" : "") + num;
+  };
 
-   // display curent time
-   const displayCurrentTime = () => {
-      let today = new Date(),
-         hour = today.getHours(),
-         minute = today.getMinutes(),
-         second = today.getSeconds();
+  // display curent date as a string on the screen
+  const displayCurrentDate = () => {
+    const currentDay = new Date();
 
-      const showAmPm = true;
+    const options = {
+      weekday: "long",
+      year: "numeric",
+      month: "short",
+      day: "numeric",
+    };
 
-      const amPm = hour >= 12 ? "PM" : "AM"; // figure out either PM or AM
+    date.textContent = currentDay.toLocaleDateString("en-US", options);
+  };
 
-      hour = hour % 12 || hour; //get a 12 hour format
+  // display curent time
+  const displayCurrentTime = () => {
+    let today = new Date(),
+      hour = today.getHours(),
+      minute = today.getMinutes(),
+      second = today.getSeconds();
 
-      time.innerHTML = `${hour}<span>:</span>${addZero(minute)}<span>:</span>${addZero(second)}${showAmPm ? amPm : ""}` // update UI
+    const showAmPm = true;
 
-      setTimeout(displayCurrentTime, 1000);
-   };
+    const amPm = hour >= 12 ? "PM" : "AM"; // figure out either PM or AM
 
-   // change background image based on current time 
-   const changeBgImage = () => {
-      const today = new Date(),
-         hour = today.getHours();
+    hour = hour % 12 || hour; //get a 12 hour format
 
-      if (hour < 12) {
-         wrapperContent.style.backgroundImage = 'linear-gradient(to bottom, rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.6)), url(./images/bg-covers/sunrise.jpg)';
-      } else if (hour < 18) {
-         wrapperContent.style.backgroundImage = 'linear-gradient(to bottom, rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.6)), url(./images/bg-covers/sunset.jpg)';
-      } else {
-         wrapperContent.style.backgroundImage = 'linear-gradient(to bottom, rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.6)), url(./images/bg-covers/night.jpg)';
+    time.innerHTML = `${hour}<span>:</span>${addZero(
+      minute
+    )}<span>:</span>${addZero(second)}${showAmPm ? amPm : ""}`; // update UI
+
+    setTimeout(displayCurrentTime, 1000);
+  };
+
+  // change background image based on current time
+  const changeBgImage = () => {
+    const today = new Date(),
+      hour = today.getHours();
+
+    if (hour < 12) {
+      wrapperContent.style.backgroundImage =
+        "linear-gradient(to bottom, rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.6)), url(./images/bg-covers/sunrise.jpg)";
+    } else if (hour < 18) {
+      wrapperContent.style.backgroundImage =
+        "linear-gradient(to bottom, rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.6)), url(./images/bg-covers/sunset.jpg)";
+    } else {
+      wrapperContent.style.backgroundImage =
+        "linear-gradient(to bottom, rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.6)), url(./images/bg-covers/night.jpg)";
+    }
+  };
+
+  // helper function that holds  fetch request, error handling and conversion to JSON format
+  const getJSONData = (
+    url,
+    errorMessage = "Something went wrong with your request"
+  ) => {
+    return fetch(url).then((response) => {
+      if (!response.ok) {
+        throw new Error(`${errorMessage}:${response.status}`);
       }
-   };
+      return response.json();
+    });
+  };
 
-   // helper function that holds  fetch request, error handling and conversion to JSON format
-   const getJSONData = (url, errorMessage = "Something went wrong with your request") => {
-      return fetch(url)
-         .then(response => {
-            if (!response.ok) {
-               throw new Error(`${errorMessage}:${response.status}`)
-            }
-            return response.json();
-         })
-   };
+  // request a certain city from a weather api
+  const requestCity = (city) => {
+    getJSONData(
+      `${weatherAPI.baseUrl}?q=${city}&appid=${weatherAPI.apiKey}`,
+      "City Not Found"
+    )
+      .then((data) => {
+        renderWeatherData(data);
+      })
+      .catch((error) => {
+        renderError(
+          `Something went wrong with your request: ${error.message}, Please Try Again!`
+        );
+      });
+  };
 
-   // request a certain city from a weather api
-   const requestCity = (city) => {
-      getJSONData(`${weatherAPI.baseUrl}?q=${city}&appid=${weatherAPI.apiKey}`, 'City Not Found')
-         .then(data => {
-            renderWeatherData(data);
-         })
-         .catch(error => {
-            renderError(`Something went wrong with your request: ${error.message}, Please Try Again!`);
-         });
-   };
+  //get a latitude and longitute of a user's position
+  const requestCoordinates = (latitude, longitute) => {
+    getJSONData(
+      `${weatherAPI.baseUrl}?lat=${latitude}&lon=${longitute}&appid=${weatherAPI.apiKey}`
+    )
+      .then((data) => {
+        renderWeatherData(data);
+        weatherDetails.classList.add("active");
+      })
+      .catch((error) => {
+        renderError(
+          `Something went wrong with your request: ${error.message}, Please Try Again!`
+        );
+      });
+  };
 
+  // convert default Kelvin units into Celsius
+  const kelvinToCelsius = (kelvin) => {
+    const celcius = Math.round(kelvin - 273.15);
+    return celcius;
+  };
 
-   // convert default Kelvin units into Celsius
-   const kelvinToCelsius = (kelvin) => {
-      const celcius = Math.round(kelvin - 273.15);
-      return celcius;
-   }
+  //check wether if it is currently day or night at the specific city and based on that, change an weather app image
+  const isDayTime = (icon) => {
+    if (icon.includes("d")) {
+      return true;
+    } else {
+      return false;
+    }
+  };
 
-   //check wether if it is currently day or night at the specific city and based on that, change an weather app image
-   const isDayTime = (icon) => {
-      if (icon.includes("d")) {
-         return true;
-      } else {
-         return false;
-      }
-   }
+  // render weather data from api and update UI
+  const renderWeatherData = (city) => {
+    const iconPath = city.weather[0].icon; // garb a path to a weather icon from API
+    const weatherIconSrc = `https://openweathermap.org/img/wn/${iconPath}@2x.png`; // change a weather icon depends on a current weather state and either it is day or night  in particular city
 
-   // render weather data from api and update UI
-   const renderWeatherData = (city) => {
-      const iconPath = city.weather[0].icon; // garb a path to a weather icon from API
-      const weatherIconSrc = `https://openweathermap.org/img/wn/${iconPath}@2x.png`; // change a weather icon depends on a current weather state and either it is day or night  in particular city
-
-      weatherDetails.innerHTML = `
+    weatherDetails.innerHTML = `
          <div class="weather-app__bottom-body">
-               <h2 class="heading-2">${city.name},<span class="heading-2--diff">${city.sys.country}</span></h2>
+               <h2 class="heading-2">${
+                 city.name
+               },<span class="heading-2--diff">${city.sys.country}</span></h2>
                <!--First row starts-->
                <div class="weather-app__row">
-                    <span class="weather-app__temperature">${kelvinToCelsius(city.main.temp)}&deg;C</span>
+                    <span class="weather-app__temperature">${kelvinToCelsius(
+                      city.main.temp
+                    )}&deg;C</span>
                     <div class="weather-app__temperature-details">
-                        <span class="weather-app__weather-condition">${city.weather[0].description}</span>
-                        <span class="weather-app__temperature-max">${kelvinToCelsius(city.main.temp_max)}&deg;C</span>
-                        <span class="weather-app__temperature-min">${kelvinToCelsius(city.main.temp_min)}&deg;C</span>
+                        <span class="weather-app__weather-condition">${
+                          city.weather[0].description
+                        }</span>
+                        <span class="weather-app__temperature-max">${kelvinToCelsius(
+                          city.main.temp_max
+                        )}&deg;C</span>
+                        <span class="weather-app__temperature-min">${kelvinToCelsius(
+                          city.main.temp_min
+                        )}&deg;C</span>
                     </div>
                </div>
                <!--First row ends-->
@@ -136,62 +196,65 @@ const runScript = () => {
                <div class="weather-app__row">
                     <div class="weather-app__temperature-additional">
                         <div class="weather-app__temperature-additional-box">
-                           <span class="weather-app__temperature-feeling">${kelvinToCelsius(city.main.feels_like)}&deg;C</span>
+                           <span class="weather-app__temperature-feeling">${kelvinToCelsius(
+                             city.main.feels_like
+                           )}&deg;C</span>
                            <p class="weather-app__temperature-additional-title">Feels like</p>
                         </div>
                            <div class="weather-app__temperature-additional-box">
-                           <span class="weather-app__temperature-feeling">${city.main.humidity}%</span>
+                           <span class="weather-app__temperature-feeling">${
+                             city.main.humidity
+                           }%</span>
                            <p class="weather-app__temperature-additional-title">Humidity</p>
                         </div>
                     </div>
                </div>
                <!--Third row ends-->
          </div> 
-      `
+      `;
 
-      if (isDayTime(weatherIconSrc)) { // pass recieved from API icon (whether day or night) 
-         weatherAppImg.setAttribute("src", "images/app-img/day.jpg");
-         weatherDetails.style.backgroundColor = 'var(--color-lighter-blue)';
-         weatherDetails.style.color = 'var(--color-white)';
-         weatherAppHeader.style.color = "var(--color-mantis-darker)";
+    if (isDayTime(weatherIconSrc)) {
+      // pass recieved from API icon (whether day or night)
+      weatherAppImg.setAttribute("src", "images/app-img/day.jpg");
+      weatherDetails.style.backgroundColor = "var(--color-lighter-blue)";
+      weatherDetails.style.color = "var(--color-white)";
+      weatherAppHeader.style.color = "var(--color-mantis-darker)";
+    } else {
+      weatherAppImg.setAttribute("src", "images/app-img/night.jpg");
+      weatherDetails.style.backgroundColor = "var(--color-dark-blue)";
+      weatherDetails.style.color = "var(--color-mantis)";
+      weatherAppHeader.style.color = "var(--color-mantis-darker)";
+    }
+  };
 
-      } else {
-         weatherAppImg.setAttribute("src", "images/app-img/night.jpg");
-         weatherDetails.style.backgroundColor = 'var(--color-dark-blue)';
-         weatherDetails.style.color = 'var(--color-mantis)';
-         weatherAppHeader.style.color = 'var(--color-mantis-darker)';
-      }
-     
-   };
+  // render am Error message text and insert it to HTML
+  const renderError = (message) => {
+    if (message) {
+      weatherDetails.innerHTML = ""; // clear wethear app body to display an error
+      weatherDetails.insertAdjacentHTML("beforeend", message);
+    }
+  };
 
-   // render am Error message text and insert it to HTML
-   const renderError = (message) => {
-      if (message) {
-         weatherDetails.innerHTML = ""; // clear wethear app body to display an error
-         weatherDetails.insertAdjacentHTML("beforeend", message);
-     }
-   };
+  //event listeners
+  formSearch.addEventListener("submit", (event) => {
+    event.preventDefault();
 
+    const searchedCity = searchInput.value.toLowerCase().trim();
+    formSearch.reset();
+    weatherDetails.innerHTML = ""; // clear weather app details card before searching a new city;
+    weatherDetails.classList.add("active");
+    requestCity(searchedCity);
+  });
 
-   //event listeners
-   formSearch.addEventListener("submit", (event) => {
-      event.preventDefault();
-
-      const searchedCity = searchInput.value.toLowerCase().trim();
-      formSearch.reset();
-      weatherDetails.innerHTML = ""; // clear weather app details card before searching a new city;
-      weatherDetails.classList.add("active");
-      requestCity(searchedCity);
-   });
-
-   //call functions
-   displayCurrentDate();
-   displayCurrentTime();
-   changeBgImage();
+  //call functions
+  displayCurrentDate();
+  displayCurrentTime();
+  changeBgImage();
+  geolocation();
 };
 
 if (document.readyState === "loading") {
-   document.addEventListener("DOMContentLoaded", runScript);
+  document.addEventListener("DOMContentLoaded", runScript);
 } else {
-   runScript();
+  runScript();
 }

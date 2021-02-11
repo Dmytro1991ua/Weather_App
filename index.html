@@ -1,95 +1,169 @@
 <!DOCTYPE html>
 <html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Weather_App</title>
+    <link
+      rel="apple-touch-icon"
+      sizes="57x57"
+      href="images/favicons/apple-icon-57x57.png"
+    />
+    <link
+      rel="apple-touch-icon"
+      sizes="60x60"
+      href="images/favicons/apple-icon-60x60.png"
+    />
+    <link
+      rel="apple-touch-icon"
+      sizes="72x72"
+      href="images/favicons/apple-icon-72x72.png"
+    />
+    <link
+      rel="apple-touch-icon"
+      sizes="76x76"
+      href="images/favicons/apple-icon-76x76.png"
+    />
+    <link
+      rel="apple-touch-icon"
+      sizes="114x114"
+      href="images/favicons/apple-icon-114x114.png"
+    />
+    <link
+      rel="apple-touch-icon"
+      sizes="120x120"
+      href="images/favicons/apple-icon-120x120.png"
+    />
+    <link
+      rel="apple-touch-icon"
+      sizes="144x144"
+      href="images/favicons/apple-icon-144x144.png"
+    />
+    <link
+      rel="apple-touch-icon"
+      sizes="152x152"
+      href="images/favicons/apple-icon-152x152.png"
+    />
+    <link
+      rel="apple-touch-icon"
+      sizes="180x180"
+      href="images/favicons/apple-icon-180x180.png"
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="192x192"
+      href="images/favicons/android-icon-192x192.png"
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="32x32"
+      href="images/favicons/favicon-32x32.png"
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="96x96"
+      href="images/favicons/favicon-96x96.png"
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="16x16"
+      href="images/favicons/favicon-16x16.png"
+    />
+    <meta name="msapplication-TileColor" content="#ffffff" />
+    <meta
+      name="msapplication-TileImage"
+      content="images/favicons/ms-icon-144x144.png"
+    />
+    <meta name="theme-color" content="#ffffff" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@400;500;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="css/main.css" />
+    <script defer src="js/main.js"></script>
+  </head>
 
-<head>
-   <meta charset="UTF-8">
-   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-   <title>Weather_App</title>
-   <link rel="apple-touch-icon" sizes="57x57" href="images/favicons/apple-icon-57x57.png">
-   <link rel="apple-touch-icon" sizes="60x60" href="images/favicons/apple-icon-60x60.png">
-   <link rel="apple-touch-icon" sizes="72x72" href="images/favicons/apple-icon-72x72.png">
-   <link rel="apple-touch-icon" sizes="76x76" href="images/favicons/apple-icon-76x76.png">
-   <link rel="apple-touch-icon" sizes="114x114" href="images/favicons/apple-icon-114x114.png">
-   <link rel="apple-touch-icon" sizes="120x120" href="images/favicons/apple-icon-120x120.png">
-   <link rel="apple-touch-icon" sizes="144x144" href="images/favicons/apple-icon-144x144.png">
-   <link rel="apple-touch-icon" sizes="152x152" href="images/favicons/apple-icon-152x152.png">
-   <link rel="apple-touch-icon" sizes="180x180" href="images/favicons/apple-icon-180x180.png">
-   <link rel="icon" type="image/png" sizes="192x192" href="images/favicons/android-icon-192x192.png">
-   <link rel="icon" type="image/png" sizes="32x32" href="images/favicons/favicon-32x32.png">
-   <link rel="icon" type="image/png" sizes="96x96" href="images/favicons/favicon-96x96.png">
-   <link rel="icon" type="image/png" sizes="16x16" href="images/favicons/favicon-16x16.png">
-   <meta name="msapplication-TileColor" content="#ffffff">
-   <meta name="msapplication-TileImage" content="images/favicons/ms-icon-144x144.png">
-   <meta name="theme-color" content="#ffffff">
-   <link href="https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@400;500;700&display=swap" rel="stylesheet">
-   <link rel="stylesheet" href="css/main.css">
-   <script defer src="js/main.js"></script>
-</head>
-
-<body>
-   <div class="wrapper">
+  <body>
+    <div class="wrapper">
       <h1 class="heading-1">Check the Weather in</h1>
       <section class="weather-app">
-         <div class="container">
-            <div class="weather-app__body">
-               <!--Weather App header starts-->
-               <figure class="weather-app__header">
-                  <div class="weather-app__img-box">
-                     <img src="images/app-img/default.png" alt="day image" class="weather-app__img">
+        <div class="container">
+          <div class="weather-app__body">
+            <!--Weather App header starts-->
+            <figure class="weather-app__header">
+              <div class="weather-app__img-box">
+                <img
+                  src="images/app-img/default.png"
+                  alt="day image"
+                  class="weather-app__img"
+                />
+              </div>
+              <span class="weather-app__date"></span>
+              <time class="weather-app__time"></time>
+              <form class="weather-app__search-input" type="submit">
+                <div class="weather-app__search-input-box">
+                  <input
+                    type="text"
+                    class="weather-app__city-search"
+                    id="city"
+                    placeholder="Enter your city"
+                  />
+                  <label class="weather-app__city-search-label" for="city"
+                    >Enter your city</label
+                  >
+                </div>
+                <button class="weather-app__search-input-btn">
+                  Let's Find Out
+                </button>
+              </form>
+              <p class="weather-app__geolocation-error"></p>
+            </figure>
+            <!--Weather App header ends-->
+            <!--Weather App bottom starts-->
+            <div class="weather-app__bottom">
+              <div class="weather-app__bottom-body">
+                <h2 class="heading-2"><span class="heading-2--diff"></span></h2>
+                <!--First row starts-->
+                <div class="weather-app__row">
+                  <span class="weather-app__temperature"></span>
+                  <div class="weather-app__temperature-details">
+                    <span class="weather-app__weather-condition"></span>
+                    <span class="weather-app__temperature-max"></span>
+                    <span class="weather-app__temperature-min"></span>
                   </div>
-                  <span class="weather-app__date"></span>
-                  <time class="weather-app__time"></time>
-                  <form class="weather-app__search-input" type="submit">
-                     <div class="weather-app__search-input-box">
-                        <input type="text" class="weather-app__city-search" id="city" placeholder="Enter your city">
-                        <label class="weather-app__city-search-label" for="city">Enter your city</label>
-                     </div>
-                     <button class="weather-app__search-input-btn">Let's Find Out</button>
-                  </form>
-               </figure>
-               <!--Weather App header ends-->
-               <!--Weather App bottom starts-->
-               <div class="weather-app__bottom">
-                  <div class="weather-app__bottom-body">
-                     <h2 class="heading-2"><span class="heading-2--diff"></span></h2>
-                     <!--First row starts-->
-                     <div class="weather-app__row">
-                        <span class="weather-app__temperature"></span>
-                        <div class="weather-app__temperature-details">
-                           <span class="weather-app__weather-condition"></span>
-                           <span class="weather-app__temperature-max"></span>
-                           <span class="weather-app__temperature-min"></span>
-                        </div>
-                     </div>
-                     <!--First row ends-->
-                     <!--Second row starts-->
-                     <div class="weather-app__row">
-                        <figure class="weather-app__icon-box">
-                           <img src="#" alt="weather icon" class="weather-app__icon">
-                        </figure>
-                     </div>
-                     <!--Second row ends-->
-                     <!--Third row starts-->
-                     <div class="weather-app__row">
-                        <div class="weather-app__temperature-additional">
-                           <div class="weather-app__temperature-additional-box">
-                              <span class="weather-app__temperature-feeling"></span>
-                              <p class="weather-app__temperature-additional-title"></p>
-                           </div>
-                           <div class="weather-app__temperature-additional-box">
-                              <span class="weather-app__temperature-feeling"></span>
-                              <p class="weather-app__temperature-additional-title"></p>
-                           </div>
-                        </div>
-                     </div>
-                     <!--Third row ends-->
+                </div>
+                <!--First row ends-->
+                <!--Second row starts-->
+                <div class="weather-app__row">
+                  <figure class="weather-app__icon-box">
+                    <img src="#" alt="weather icon" class="weather-app__icon" />
+                  </figure>
+                </div>
+                <!--Second row ends-->
+                <!--Third row starts-->
+                <div class="weather-app__row">
+                  <div class="weather-app__temperature-additional">
+                    <div class="weather-app__temperature-additional-box">
+                      <span class="weather-app__temperature-feeling"></span>
+                      <p class="weather-app__temperature-additional-title"></p>
+                    </div>
+                    <div class="weather-app__temperature-additional-box">
+                      <span class="weather-app__temperature-feeling"></span>
+                      <p class="weather-app__temperature-additional-title"></p>
+                    </div>
                   </div>
-               </div>
-               <!--Weather App bottom ends-->
+                </div>
+                <!--Third row ends-->
+              </div>
             </div>
-         </div>
+            <!--Weather App bottom ends-->
+          </div>
+        </div>
       </section>
-   </div>
-</body>
-
+    </div>
+  </body>
 </html>
